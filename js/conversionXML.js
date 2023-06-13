@@ -255,7 +255,6 @@ parser.verSVG = function () {
 parser.mostrarMapa = function (number) {
   var lista = [];
   var nombres = [];
-  var descripcion = [];
 
   var opciones = {
     zoom: 10,
@@ -270,16 +269,12 @@ parser.mostrarMapa = function (number) {
   $("name", parser.kml[number]).each(function (index) {
     nombres.push($(this).text());
   });
-  $("description", parser.kml[number]).each(function (index) {
-    descripcion.push($(this).text().slice(2, -5));
-  });
   $("coordinates", parser.kml[number]).each(function (index) {
     var numeros = $(this).text().split(",");
     lista.push(Number(numeros[0]));
     lista.push(Number(numeros[1]));
   });
 
-  var markers = [];
   var counter = 0;
   for (let index = 0; index < nombres.length; index++) {
     var long = lista[counter++];
@@ -291,18 +286,6 @@ parser.mostrarMapa = function (number) {
       },
       map: map,
       title: nombres[index],
-    });
-
-    var infoWindow = new google.maps.InfoWindow({
-      content: "<h3>Descripción</h3><p>" + descripcion[index] + "</p>",
-    });
-    markers.push(infoWindow);
-
-    marker.addListener("click", function () {
-      for (var i = 0; i < markers.length; i++) {
-        markers[i].close();
-      }
-      infoWindow.open({ anchor: marker, map });
     });
   }
 };

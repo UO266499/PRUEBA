@@ -84,7 +84,7 @@
         </ul>
        
         <?php
-        require('baseDeDatos.php')
+        require('baseDeDatos.php');
         $base = new BaseDeDatos();
         $base->inicializarBD();
         if (count($_POST) > 0)

@@ -1,3 +1,4 @@
+
 <?php
 
 class BaseDeDatos
@@ -8,31 +9,25 @@ class BaseDeDatos
     private $db;
     private $user_id;
     private $ultimaFecha;
-    private $connection;
-    
-    
+
     public function __construct(){
-        $this->username = "DBUSER2023";
-        $this->password = "1234";
+        $this->username = "DBUSER2022";
+        $this->password = "DBPSWD2022";
         $this->server = "localhost";
-        $this->db = "reservas2";
-    }
-    
-    public function createConnection(){
-        $this->connection = mysqli_init();
-        mysqli_ssl_set($this->connection,NULL,NULL, "./DigiCertGlobalRootCA.crt.pem", NULL, NULL);
-        mysqli_real_connect($this->connection, "basedeprueba.mysql.database.azure.com", "uo266499", "test123...", "reservas", 3306, MYSQLI_CLIENT_SSL);   
+        $this->db = "reservas";
     }
 
     public function inicializarBD(){
-    $this->createConnection();
+   $connection = mysqli_init();
+        mysqli_ssl_set($connection,NULL,NULL, "./DigiCertGlobalRootCA.crt.pem", NULL, NULL);
+        mysqli_real_connect($connection, "basedeprueba.mysql.database.azure.com", "uo266499", "test123...", "reservas", 3306, MYSQLI_CLIENT_SSL); 
     $query = "CREATE TABLE IF NOT EXISTS users (
         user_id INT AUTO_INCREMENT PRIMARY KEY,
         username VARCHAR(50) NOT NULL,
         password VARCHAR(50) NOT NULL,
         email VARCHAR(100) NOT NULL
     );";
-    $this->connection->query($query);
+    $connection->query($query);
 
 
     $query = "CREATE TABLE IF NOT EXISTS tourist_resources (
@@ -44,7 +39,7 @@ class BaseDeDatos
         description VARCHAR(500) NOT NULL,
         availability INT NOT NULL
     );";
-$this->connection->query($query);
+    $connection->query($query);
 
         $query = "CREATE TABLE IF NOT EXISTS reservations (
             reservation_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -58,7 +53,7 @@ $this->connection->query($query);
             FOREIGN KEY (user_id) REFERENCES users(user_id),
             FOREIGN KEY (resource_id) REFERENCES tourist_resources(resource_id)
         );";
-        $this->connection->query($query);
+        $connection->query($query);
 
         $query = "CREATE TABLE IF NOT EXISTS payments (
             payment_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -67,7 +62,7 @@ $this->connection->query($query);
             amount DECIMAL(10,2) NOT NULL,
             FOREIGN KEY (reservation_id) REFERENCES reservations(reservation_id)
         );";
-        $this->connection->query($query);
+        $connection->query($query);
 
         $query = "CREATE TABLE IF NOT EXISTS reviews (
             review_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -78,9 +73,9 @@ $this->connection->query($query);
             FOREIGN KEY (user_id) REFERENCES users(user_id),
             FOREIGN KEY (resource_id) REFERENCES tourist_resources(resource_id)
         );";
-    $this->connection->query($query);
+    $connection->query($query);
 
-    $queryData = $this->connection->prepare("INSERT IGNORE INTO tourist_resources (resource_id,resource_name,location,price,type,description,availability) VALUES (?,?,?,?,?,?,?)"); 
+    $queryData = $connection->prepare("INSERT IGNORE INTO tourist_resources (resource_id,resource_name,location,price,type,description,availability) VALUES (?,?,?,?,?,?,?)"); 
 
     $id = 0;
     $name = 'Las Ayalgas de Silviella';
@@ -183,17 +178,18 @@ $this->connection->query($query);
     $availability = 40;
 
     $queryData ->execute();
-        
-    $this->connection->close();
+    $connection->close();
 }
 
 public function crearCuenta(){
-     $this->createConnection();
-    $queryData = $this->connection->prepare("INSERT INTO users (user_id,username,password,email) VALUES (?,?,?,?)");
+    $connection = mysqli_init();
+        mysqli_ssl_set($connection,NULL,NULL, "./DigiCertGlobalRootCA.crt.pem", NULL, NULL);
+        mysqli_real_connect($connection, "basedeprueba.mysql.database.azure.com", "uo266499", "test123...", "reservas", 3306, MYSQLI_CLIENT_SSL); 
+    $queryData = $connection->prepare("INSERT INTO users (user_id,username,password,email) VALUES (?,?,?,?)");
     if(empty($_POST["username"]) || empty($_POST["email"]) || empty($_POST["password"])){
         echo "<p> Alguno de los campos no ha sido rellenado </p>";
     }else{
-        $query = $this->connection->query("SELECT COUNT(*) from users WHERE username = '" . $_POST["username"] ."'");
+        $query = $connection->query("SELECT COUNT(*) from users WHERE username = '" . $_POST["username"] ."'");
         if($query->fetch_row()[0] != 0){
             echo "<p>Ya existe una cuenta con ese usuario</p>";
         }else{
@@ -203,25 +199,30 @@ public function crearCuenta(){
         echo "<p>Cuenta anadida correctamente</p>";
         }
     }
-     $this->connection->close();
+    $connection->close();
 }
 
 public function inicioSesion(){
-     $this->createConnection();
-    $query = $this->connection->query("SELECT COUNT(*) from users WHERE username = '" . $_POST["username2"] ."' AND password = '" . $_POST["password2"] ."'");
+    $connection = mysqli_init();
+        mysqli_ssl_set($connection,NULL,NULL, "./DigiCertGlobalRootCA.crt.pem", NULL, NULL);
+        mysqli_real_connect($connection, "basedeprueba.mysql.database.azure.com", "uo266499", "test123...", "reservas", 3306, MYSQLI_CLIENT_SSL); 
+    $query = $connection->query("SELECT COUNT(*) from users WHERE username = '" . $_POST["username2"] ."' AND password = '" . $_POST["password2"] ."'");
     if($query->fetch_row()[0] == 0){
         echo "<p>No existe esta cuenta</p>";
     }else{
-        $query = $this->connection->query("SELECT user_id from users WHERE username = '" . $_POST["username2"] ."' AND password = '" . $_POST["password2"] ."'");
+        $query = $connection->query("SELECT user_id from users WHERE username = '" . $_POST["username2"] ."' AND password = '" . $_POST["password2"] ."'");
         $_SESSION['user_id'] = $query->fetch_row()[0];
         echo "<p>Bienvenido " . $_POST["username2"] . ", haga click en el enlace inferior para acceder a los recursos turisticos.</p>";
         echo '<a href="reservar.php" title="Iniciar busqueda de reservas">Buscar recursos turisticos a reservar</a>';
     }
- $this->connection->close();
+    
+    $connection->close();
 }
 
 public function mostrarRecursos(){
-     $this->createConnection();
+    $connection = mysqli_init();
+        mysqli_ssl_set($connection,NULL,NULL, "./DigiCertGlobalRootCA.crt.pem", NULL, NULL);
+        mysqli_real_connect($connection, "basedeprueba.mysql.database.azure.com", "uo266499", "test123...", "reservas", 3306, MYSQLI_CLIENT_SSL); 
     if(empty($_POST["fecha"]) || empty($_POST["time"]) || empty($_POST["fechaF"]) || empty($_POST["timeF"])){
         echo "<p> Se debe seleccionar una fecha y hora antes de buscar </p>";
     }else{
@@ -233,14 +234,14 @@ public function mostrarRecursos(){
         $_SESSION['fechaF'] = $fechaF;
         $timeF = $_POST["timeF"];
         $_SESSION['timeF'] = $timeF;
-        $query = $this->connection->query("SELECT * from tourist_resources");
+        $query = $connection->query("SELECT * from tourist_resources");
         
         echo "<form action='#' method='post' id=reserva>";
 
         while ($row = $query->fetch_row()){
-            $capacidadActual = $this->connection->query("SELECT COUNT(*) FROM reservations where trip_date ='".$fecha."'AND trip_time ='".$time."' AND resource_id ='".$row[0]."'");
+            $capacidadActual = $connection->query("SELECT COUNT(*) FROM reservations where trip_date ='".$fecha."'AND trip_time ='".$time."' AND resource_id ='".$row[0]."'");
             $capacidad = $capacidadActual->fetch_row()[0];
-            $review = $this->connection->query("SELECT AVG(rating) from reviews WHERE resource_id = " . $row[0]);
+            $review = $connection->query("SELECT AVG(rating) from reviews WHERE resource_id = " . $row[0]);
             echo "<h3>" . $row[1]. "</h3>";
             echo "<p> Ciudad: " . $row[2]. "</p>";
             echo "<p>Valoracion media: ". round($review->fetch_row()[0],4). "</p>";
@@ -266,20 +267,21 @@ public function mostrarRecursos(){
         echo "<button type='submit' name='reservar'> Realizar reservas </button>";
         echo "</form>";
     }
-     $this->connection->close();
 }
 
 public function verReservas(){
-     $this->createConnection();
+    $connection = mysqli_init();
+        mysqli_ssl_set($connection,NULL,NULL, "./DigiCertGlobalRootCA.crt.pem", NULL, NULL);
+        mysqli_real_connect($connection, "basedeprueba.mysql.database.azure.com", "uo266499", "test123...", "reservas", 3306, MYSQLI_CLIENT_SSL); 
     echo "<h2> Mis reservas </h2>";
     echo "<p> En la siguiente sección se muestran las reservas realizadas hasta ahora. </p>";
-    $query = $this->connection->query("SELECT * from reservations WHERE user_id= " . $_SESSION['user_id'] . " ORDER BY  trip_date, trip_time ASC ");
+    $query = $connection->query("SELECT * from reservations WHERE user_id= " . $_SESSION['user_id'] . " ORDER BY  trip_date, trip_time ASC ");
     while ($row = $query->fetch_row()){
-        $resource = $this->connection->query("SELECT * from tourist_resources WHERE resource_id= " . $row[2]);
+        $resource = $connection->query("SELECT * from tourist_resources WHERE resource_id= " . $row[2]);
         while ($rowResource = $resource->fetch_row()){
-            $isReviewed = $this->connection->query("SELECT * from reviews WHERE resource_id = " . $rowResource[0] . " AND user_id =" .$_SESSION['user_id']);
+            $isReviewed = $connection->query("SELECT * from reviews WHERE resource_id = " . $rowResource[0] . " AND user_id =" .$_SESSION['user_id']);
             $rowIsReviewed = $isReviewed->fetch_row();
-            $paymentMethod = $this->connection->query("SELECT payment_method from payments WHERE reservation_id = " . $row[0]);
+            $paymentMethod = $connection->query("SELECT payment_method from payments WHERE reservation_id = " . $row[0]);
             $initDate =DateTime::createFromFormat('Y-m-d',$row[3]);
             $finDate = DateTime::createFromFormat('Y-m-d',$row[5]);
             if($rowIsReviewed == null){
@@ -287,8 +289,8 @@ public function verReservas(){
                 echo "<h3>" . $rowResource[1] . "</h3>";
                 echo "<p>Fecha inicio: ". $row[3]." ".$row[4]. "</p>";
                 echo "<p>Fecha fin: ". $row[5]." ".$row[6]. "</p>";
-                echo "<p>Precio: ".intval($rowResource[3],10) *( $initDate->diff($finDate)->days)  ."</p>";
-                echo "<p>Metodo de pago: " . $paymentMethod->fetch_row()[0]."</p>";
+                echo "<p>Precio: ".intval($rowResource[3],10) *( $initDate->diff($finDate)->days + 1)  ."</p>";
+                echo "<p>Metodo de pago: " . $paymentMethod->fetch_row()[0] ."</p>";
                 echo '<label for="'.$rowResource[0].'">Reseña:</label>';
                 echo '<input type="number" id="'.$rowResource[0].'" name="'.$rowResource[0].'" min="1" max="5"/>';
                 echo '<label for="comentario'.$rowResource[0].'">Comentarios:</label>';
@@ -299,7 +301,7 @@ public function verReservas(){
                 echo "<h3>" . $rowResource[1] . "</h3>";
                 echo "<p>Fecha inicio: ". $row[3]." ".$row[4]. "</p>";
                 echo "<p>Fecha fin: ". $row[5]." ".$row[6]. "</p>";
-                echo "<p>Precio: ".intval($rowResource[3],10) *( $initDate->diff($finDate)->days)  ."</p>";
+                echo "<p>Precio: ".intval($rowResource[3],10) *( $initDate->diff($finDate)->days + 1)  ."</p>";
                 echo "<p>Metodo de pago:" . $paymentMethod->fetch_row()[0]."</p>";
                 echo '<label for="'.$rowResource[0].'">Reseña:</label>';
                 echo  '<input type="number" id="'.$rowResource[0].'" name="'.$rowResource[0].'" value="'.$rowIsReviewed[3].'"disabled/>';
@@ -308,11 +310,12 @@ public function verReservas(){
             }
         }
     }
-     $this->connection->close();
 }
 
 public function reservar(){
-     $this->createConnection();
+    $connection = mysqli_init();
+        mysqli_ssl_set($connection,NULL,NULL, "./DigiCertGlobalRootCA.crt.pem", NULL, NULL);
+        mysqli_real_connect($connection, "basedeprueba.mysql.database.azure.com", "uo266499", "test123...", "reservas", 3306, MYSQLI_CLIENT_SSL); 
     $metodo = $_POST['metodoDePago'];
     $valido = true;
     $fecha = $_SESSION['fecha'];
@@ -323,9 +326,9 @@ public function reservar(){
             $dateFinal = DateTime::createFromFormat('Y-m-d', $_SESSION['fechaF']);
             while(!($dateInicial == $dateFinal)){
                 $currentDate =  date_format($dateInicial,'Y-m-d');
-                $queryAmount = $this->connection->query("SELECT COUNT(*) FROM  reservations WHERE trip_date='$currentDate' AND trip_time='$hora'"); 
+                $queryAmount = $connection->query("SELECT COUNT(*) FROM  reservations WHERE trip_date='$currentDate' AND trip_time='$hora'"); 
 
-                $query = $this->connection->query("SELECT availability FROM tourist_resources where resource_id = ". $key );
+                $query = $connection->query("SELECT availability FROM tourist_resources where resource_id = ". $key );
 
                 $availability = $query->fetch_row()[0];
                 $numberOfReservations = $queryAmount->fetch_row()[0];
@@ -340,19 +343,24 @@ public function reservar(){
     if ($valido){
     foreach($_POST as $key => $value){
         if($key != 'reservar' && $key != 'metodoDePago'){
-            $queryData = $this->connection->prepare("INSERT INTO reservations (reservation_id,user_id,resource_id,trip_date,trip_time, trip_date_end, trip_time_end,total_cost) VALUES (?,?,?,?,?,?,?,?)"); 
-
-            $query = $this->connection->query("SELECT price FROM tourist_resources where resource_id = ". $key );
+            $queryData = $connection->prepare("INSERT INTO reservations (reservation_id,user_id,resource_id,trip_date,trip_time, trip_date_end, trip_time_end,total_cost) VALUES (?,?,?,?,?,?,?,?)"); 
+            $query = $connection->query("SELECT price FROM tourist_resources where resource_id = ". $key );
 
             $id= 0;
             $user_id = $_SESSION['user_id'];
             $resource_id = $key;
             $date = $_SESSION['fecha'];
-            $tiempo = (strtotime($_SESSION['fechaF']) - strtotime($_SESSION['fecha']))/(24*60*60);
-            if($tiempo == 0){
-                $tiempo = 1;
+
+            $date1 = new DateTime( $_SESSION['fecha']);
+            $date2 = new DateTime( $_SESSION['fechaF']);
+            $interval = $date1->diff($date2);
+            $days = intval($interval->days) + 1;
+            if ($days === 0){
+                $days = 1;
             }
-            $price = round($query->fetch_row()[0] * $tiempo);
+
+           
+            $price = round($query->fetch_row()[0] * ($days ));
             $dateF = $_SESSION['fechaF'];
             $time = $_SESSION['time'];
             $timeF = $_SESSION['timeF'];
@@ -361,22 +369,23 @@ public function reservar(){
             
             $queryData ->execute();
 
-            $reservation_id = $this->connection->query("SELECT reservation_id FROM reservations where resource_id = ". $resource_id ." AND user_id=" . $_SESSION['user_id']." AND trip_date='" . $date ."' AND trip_time= '" . $time ."'"   );
+            $reservation_id = $connection->query("SELECT reservation_id FROM reservations where resource_id = ". $resource_id ." AND user_id=" . $_SESSION['user_id']." AND trip_date='" . $date ."' AND trip_time= '" . $time ."'"   );
 
-            $this->connection->query("INSERT INTO payments (payment_id,reservation_id,payment_method,amount) VALUES (". 0 .",".$reservation_id->fetch_row()[0].",'".$metodo."',".$price.")");
+            $connection->query("INSERT INTO payments (payment_id,reservation_id,payment_method,amount) VALUES (". 0 .",".$reservation_id->fetch_row()[0].",'".$metodo."',".$price.")");
         }
     }
-    $query = $this->connection->query("SELECT SUM(total_cost) FROM reservations where user_id = ". $_SESSION['user_id'] );
+    $query = $connection->query("SELECT SUM(total_cost) FROM reservations where user_id = ". $_SESSION['user_id'] );
     echo "Coste total de reservas: " . $query->fetch_row()[0];
 }
-     $this->connection->close();
 }
 
 public function hacerResena(){
-     $this->createConnection();
+    $connection = mysqli_init();
+        mysqli_ssl_set($connection,NULL,NULL, "./DigiCertGlobalRootCA.crt.pem", NULL, NULL);
+        mysqli_real_connect($connection, "basedeprueba.mysql.database.azure.com", "uo266499", "test123...", "reservas", 3306, MYSQLI_CLIENT_SSL); 
     foreach($_POST as $key => $value){
         if($key != 'resena' && $key != 'comentarios'){
-            $queryData = $this->connection->prepare("INSERT INTO reviews (review_id,user_id,resource_id,rating,comments) VALUES (?,?,?,?,?)"); 
+            $queryData = $connection->prepare("INSERT INTO reviews (review_id,user_id,resource_id,rating,comments) VALUES (?,?,?,?,?)"); 
             $review_id = 0;
             $user_id = $_SESSION['user_id'];
             $resource_id = $key;
@@ -386,7 +395,5 @@ public function hacerResena(){
             $queryData ->execute();
         }
     }
-     $this->connection->close();
 }
 }
-
