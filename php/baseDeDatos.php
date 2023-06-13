@@ -214,10 +214,8 @@ public function inicioSesion(){
     }else{
         $query = $this->connection->query("SELECT user_id from users WHERE username = '" . $_POST["username2"] ."' AND password = '" . $_POST["password2"] ."'");
         $_SESSION['user_id'] = $query->fetch_row()[0];
-        header("Location: /reservar.php");
-        exit;
-//         echo "<p>Bienvenido " . $_POST["username2"] . ", haga click en el enlace inferior para acceder a los recursos turisticos.</p>";
-//         echo '<a href="reservar.php" title="Iniciar busqueda de reservas">Buscar recursos turisticos a reservar</a>';
+        echo "<p>Bienvenido " . $_POST["username2"] . ", haga click en el enlace inferior para acceder a los recursos turisticos.</p>";
+        echo '<a href="reservar.php" title="Iniciar busqueda de reservas">Buscar recursos turisticos a reservar</a>';
     }
  $this->connection->close();
 }
