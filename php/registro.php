@@ -84,9 +84,7 @@
         </ul>
        
         <?php
-        require('baseDeDatos.php');
-        error_reporting(E_ALL);
-ini_set('display_errors', 1);
+        require('baseDeDatos.php')
         $base = new BaseDeDatos();
         $base->inicializarBD();
         if (count($_POST) > 0)
