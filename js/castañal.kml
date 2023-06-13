@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+ <kml xmlns="http://www.opengis.net/kml/2.2">
+<Document>
+<Placemark>
+<name>La castañal</name>
+<description>
+ <![CDATA[<p>Ruta situada en Belmonte de Miranda y que pasa por varios lugares con vistas guapisimas de la naturaleza y fauna</p>]]>
+ </description>
+<Point>
+<coordinates>-6.2173149,43.282578</coordinates>
+</Point></Placemark>
+<Placemark>
+<name>Regueiru de Cuvasil</name>
+<description>
+ <![CDATA[<p>Llegada al rio Regueiru de Cuvasil y a 100 metros se encuentra la fuente de Santa Icía</p>]]>
+ </description>
+<Point>
+<coordinates>-6.218328,43.272126</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>Ondes</name>
+<description>
+ <![CDATA[<p>Llegada aldea Ondes, que data del siglo XII, mas informacion en la referencia del siglo XII en Asturias</p>]]>
+ </description>
+<Point>
+<coordinates>-6.218328,43.272126</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>Dolia</name>
+<description>
+ <![CDATA[<p>Llegada aldea Dolia,alojaba a quienes pasaban por el Camín Real de la Mesa, ofreciéndoles agua, posada, lumbre y sal. A cambio de esto, Dolia no pagaba contribución al dominio monacal al que pertenecía.</p>]]>
+ </description>
+<Point>
+<coordinates>-6.1963089,43.262333</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>Belmonte</name>
+<description>
+ <![CDATA[<p>Llegada de vuelta a Belmonte</p>]]>
+ </description>
+<Point>
+<coordinates>-6.2173149,43.282578</coordinates>
+</Point>
+</Placemark>
+</Document>
+</kml>

@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rutas>
+ <ruta>
+  <nombre>La castañal</nombre>
+  <tipo>Senderismo</tipo>
+  <transporte>A pie</transporte>
+  <fechaInicio>25-06-2023</fechaInicio>
+  <horaInicio>09:00</horaInicio>
+  <duracion>4.5 horas</duracion>
+  <agencia>Sin agencia</agencia>
+  <descripcion>Ruta situada en Belmonte de Miranda y que pasa por varios lugares con vistas guapisimas de la naturaleza y fauna</descripcion>
+  <tipoDePersonas>Se puede ir con niño si estan acostumbrados a rutas con desnivel </tipoDePersonas>
+  <lugarInicio>Belmonte</lugarInicio>
+  <direccionInicio>Plaza Concha Heres</direccionInicio>
+  <coordenadasInicio latitud="43.282578" longitud="-6.2173149" altitud="201"/>
+  <referencias>
+   <referencia>https://www.belmontedemiranda.es/senderismo/</referencia>
+   <referencia>https://www.lavozdeasturias.es/noticia/asturias/2019/09/06/era-gran-asturias-reino-fin-mundo/00031567767414974958680.htm</referencia>
+   <referencia>https://es.wikipedia.org/wiki/Fauna_de_Asturias</referencia>
+  </referencias>
+  <recomendacion>8</recomendacion>
+  <hitos>
+   <hito>
+    <nombreHito>Regueiru de Cuvasil</nombreHito>
+    <descripcionHito>Llegada al rio Regueiru de Cuvasil y a 100 metros se encuentra la fuente de Santa Icía</descripcionHito>
+    <coordenadasHito latitud="43.272126" longitud="-6.218328" altitud="229"/>
+    <distanciaAnterior kilometros="1.1"/>
+    <galeriaFotos>
+     <foto>RegueirudeCuvasil.jpg</foto>
+    </galeriaFotos>
+   </hito>
+    <hito>
+      <nombreHito>Ondes</nombreHito>
+      <descripcionHito>Llegada aldea Ondes, que data del siglo XII, mas informacion en la referencia del siglo XII en Asturias</descripcionHito>
+      <coordenadasHito latitud="43.272126" longitud="-6.218328" altitud="579"/>
+      <distanciaAnterior kilometros="2.4"/>
+      <galeriaFotos>
+        <foto>ondes.jpg</foto>
+        <foto>fuentedeSifontes.jpg</foto>
+      </galeriaFotos>
+    </hito>
+   <hito>
+    <nombreHito>Dolia</nombreHito>
+    <descripcionHito>Llegada aldea Dolia,alojaba a quienes pasaban por el Camín Real de la Mesa, ofreciéndoles agua, posada, lumbre y sal. A cambio de esto, Dolia no pagaba contribución al dominio monacal al que pertenecía.</descripcionHito>
+    <coordenadasHito latitud="43.262333" longitud="-6.1963089" altitud="824"/>
+    <distanciaAnterior kilometros="5.5"/>
+    <galeriaFotos>
+     <foto>construccionDolia.jpg</foto>
+     <foto>senderoADolia.jpg</foto>
+    </galeriaFotos>
+   </hito>
+   <hito>
+    <nombreHito>Belmonte</nombreHito>
+    <descripcionHito>Llegada de vuelta a Belmonte</descripcionHito>
+    <coordenadasHito latitud="43.282578" longitud="-6.2173149" altitud="201"/>
+    <distanciaAnterior kilometros="5"/>
+    <galeriaFotos>
+     <foto>belmonte.jpg</foto>
+    </galeriaFotos>
+    <galeriaVideos>
+    <video>belmonte.mp4</video>
+    </galeriaVideos>
+   </hito>
+  </hitos>
+  <planimetria>castañal.kml</planimetria>
+  <altimetria>castañal.svg</altimetria>
+ </ruta>
+ <ruta>
+  <nombre>Salmones Arriba</nombre>
+  <tipo>Senderismo</tipo>
+  <transporte>A pie</transporte>
+  <fechaInicio>25-06-2023</fechaInicio>
+  <horaInicio>9:20</horaInicio>
+  <duracion>3.6 horas</duracion>
+  <agencia>Sin agencia</agencia>
+  <descripcion>Ruta que se inicia en belmonte y pasa por corias, silviella y san cristobal</descripcion>
+  <tipoDePersonas>Personas con mucha experiencia</tipoDePersonas>
+  <lugarInicio>Belmonte</lugarInicio>
+  <direccionInicio>Plaza Pío XII</direccionInicio>
+  <coordenadasInicio latitud="43.2832003" longitud="-6.2169338" altitud="201"/>
+  <referencias>
+   <referencia>https://www.belmontedemiranda.es/senderismo/</referencia>
+   <referencia>https://www.pueblosasturias.es/asturias/c/0/i/43875238/sirviella</referencia>
+   <referencia>https://es.wikipedia.org/wiki/Fauna_de_Asturias</referencia>
+  </referencias>
+  <recomendacion>5</recomendacion>
+  <hitos>
+   <hito>
+    <nombreHito>Corias</nombreHito>
+    <descripcionHito>Llegada a Corias al cabo de una hora de marcha</descripcionHito>
+    <coordenadasHito latitud="43.2954814" longitud="-6.2269184" altitud="229"/>
+    <distanciaAnterior kilometros="1.2"/>
+    <galeriaFotos>
+     <foto>corias.jpg</foto>
+    </galeriaFotos>
+   </hito>
+   <hito>
+    <nombreHito>Silviella</nombreHito>
+    <descripcionHito>Llegada aldea Ondes, que data del siglo XII, mas informacion en la referencia del siglo XII en Asturias</descripcionHito>
+    <coordenadasHito latitud="43.272126" longitud="-6.218328" altitud="280"/>
+    <distanciaAnterior kilometros="5.7"/>
+    <galeriaFotos>
+     <foto>silviella.jpg</foto>
+     <foto>silviellaPaisaje.jpg</foto>
+    </galeriaFotos>
+   </hito>
+   <hito>
+    <nombreHito>San Cristobal</nombreHito>
+    <descripcionHito>Llegada al hito final san cristobal, donde se puede disfrutar de una comida tipica asturiana en casa tocho</descripcionHito>
+    <coordenadasHito latitud="43.3428539" longitud="-6.2024229" altitud="105"/>
+    <distanciaAnterior kilometros="3.3"/>
+    <galeriaFotos>
+     <foto>casatocho.jpg</foto>
+     <foto>sancristobal.jpg</foto>
+    </galeriaFotos>
+   </hito>
+  </hitos>
+  <planimetria>salmones.kml</planimetria>
+  <altimetria>salmones.svg</altimetria>
+ </ruta>
+ <ruta>
+  <nombre>L'altu</nombre>
+  <tipo>Senderismo</tipo>
+  <transporte>A pie</transporte>
+  <fechaInicio>30-06-2023</fechaInicio>
+  <horaInicio>10:00</horaInicio>
+  <duracion>2.5 horas</duracion>
+  <agencia>Sin agencia</agencia>
+  <descripcion>Ruta que se inicia en oviñana y temina en la brueba </descripcion>
+  <tipoDePersonas>Cualquier persona</tipoDePersonas>
+  <lugarInicio>La Brueba</lugarInicio>
+  <direccionInicio>AS-15a</direccionInicio>
+  <coordenadasInicio latitud="43.351883" longitud="-6.202565" altitud="101"/>
+  <referencias>
+   <referencia>https://www.belmontedemiranda.es/senderismo/</referencia>
+   <referencia>https://www.asturnatura.com/turismo/ovinana-de-belmonte/2566.html</referencia>
+   <referencia>http://www.prerromanicoasturiano.es</referencia>
+  </referencias>
+  <recomendacion>6</recomendacion>
+  <hitos>
+   <hito>
+    <nombreHito>Leiguarda</nombreHito>
+    <descripcionHito>Coronamos el pueblo de Leiguarda</descripcionHito>
+    <coordenadasHito latitud="43.3297757" longitud="-6.2255948" altitud="370"/>
+    <distanciaAnterior kilometros="5.5"/>
+    <galeriaFotos>
+     <foto>leiguarda.jpg</foto>
+    </galeriaFotos>
+   </hito>
+   <hito>
+    <nombreHito>Pico Courio</nombreHito>
+    <descripcionHito>Llegada al pico Courio, practicamente  hemos terminado</descripcionHito>
+    <coordenadasHito latitud="43.3407802" longitud="-6.241168" altitud="1100"/>
+    <distanciaAnterior kilometros="2.1"/>
+    <galeriaFotos>
+     <foto>picoCourio.jpg</foto>
+        <foto>paisajeCourio.jpg</foto>
+    </galeriaFotos>
+   </hito>
+   <hito>
+    <nombreHito>Alto la Brueba</nombreHito>
+    <descripcionHito>Llegada al hito final Alto la Brueba, donde se pueden observar unas vistas preciosas</descripcionHito>
+    <coordenadasHito latitud="43.3333587" longitud="-6.2481731" altitud="760"/>
+    <distanciaAnterior kilometros="0.8"/>
+    <galeriaFotos>
+     <foto>alto.jpg</foto>
+    </galeriaFotos>
+   </hito>
+  </hitos>
+  <planimetria>altu.kml</planimetria>
+  <altimetria>altu.svg</altimetria>
+ </ruta>
+</rutas>

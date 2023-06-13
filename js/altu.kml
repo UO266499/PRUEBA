@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+ <kml xmlns="http://www.opengis.net/kml/2.2">
+<Document>
+<Placemark>
+<name>L'altu</name>
+<description>
+ <![CDATA[<p>Ruta que se inicia en oviñana y temina en la brueba </p>]]>
+ </description>
+<Point>
+<coordinates>-6.202565,43.351883</coordinates>
+</Point></Placemark>
+<Placemark>
+<name>Leiguarda</name>
+<description>
+ <![CDATA[<p>Coronamos el pueblo de Leiguarda</p>]]>
+ </description>
+<Point>
+<coordinates>-6.2255948,43.3297757</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>Pico Courio</name>
+<description>
+ <![CDATA[<p>Llegada al pico Courio, practicamente  hemos terminado</p>]]>
+ </description>
+<Point>
+<coordinates>-6.241168,43.3407802</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>Alto la Brueba</name>
+<description>
+ <![CDATA[<p>Llegada al hito final Alto la Brueba, donde se pueden observar unas vistas preciosas</p>]]>
+ </description>
+<Point>
+<coordinates>-6.2481731,43.3333587</coordinates>
+</Point>
+</Placemark>
+</Document>
+</kml>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+ <!DOCTYPE svg>
+    <svg xmlns="http://www.w3.org/2000/svg">
+<title>Altimetria La castañal</title>
+<line x1="0" y1="201" x2="100" y2="22.9" style="stroke:red; stroke-width:5"/>
+<line x1="100" y1="22.9" x2="200" y2="57.9" style="stroke:red; stroke-width:5"/>
+<line x1="200" y1="57.9" x2="300" y2="82.4" style="stroke:red; stroke-width:5"/>
+<line x1="300" y1="82.4" x2="400" y2="20.1" style="stroke:red; stroke-width:5"/>
+</svg>

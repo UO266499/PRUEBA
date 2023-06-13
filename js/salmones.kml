@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+ <kml xmlns="http://www.opengis.net/kml/2.2">
+<Document>
+<Placemark>
+<name>Salmones Arriba</name>
+<description>
+ <![CDATA[<p>Ruta que se inicia en belmonte y pasa por corias, silviella y san cristobal</p>]]>
+ </description>
+<Point>
+<coordinates>-6.2169338,43.2832003</coordinates>
+</Point></Placemark>
+<Placemark>
+<name>Corias</name>
+<description>
+ <![CDATA[<p>Llegada a Corias al cabo de una hora de marcha</p>]]>
+ </description>
+<Point>
+<coordinates>-6.2269184,43.2954814</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>Silviella</name>
+<description>
+ <![CDATA[<p>Llegada aldea Ondes, que data del siglo XII, mas informacion en la referencia del siglo XII en Asturias</p>]]>
+ </description>
+<Point>
+<coordinates>-6.218328,43.272126</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>San Cristobal</name>
+<description>
+ <![CDATA[<p>Llegada al hito final san cristobal, donde se puede disfrutar de una comida tipica asturiana en casa tocho</p>]]>
+ </description>
+<Point>
+<coordinates>-6.2024229,43.3428539</coordinates>
+</Point>
+</Placemark>
+</Document>
+</kml>

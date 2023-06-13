@@ -1,0 +1,394 @@
+<?php
+
+class BaseDeDatos
+{ 
+    private $username;
+    private $password;
+    private $server;
+    private $db;
+    private $user_id;
+    private $ultimaFecha;
+    private $connection;
+    
+    
+    public function __construct(){
+        $this->username = "DBUSER2023";
+        $this->password = "1234";
+        $this->server = "localhost";
+        $this->db = "reservas2";
+    }
+    
+    public function createConnection(){
+        $this->connection = mysqli_init();
+        mysqli_ssl_set($this->connection,NULL,NULL, "./DigiCertGlobalRootCA.crt.pem", NULL, NULL);
+        mysqli_real_connect($this->connection, "sewdb.mysql.database.azure.com", "adminsew", "test123...", "reservas", 3306, MYSQLI_CLIENT_SSL);   
+    }
+
+    public function inicializarBD(){
+    $this->createConnection();
+    $query = "CREATE TABLE IF NOT EXISTS users (
+        user_id INT AUTO_INCREMENT PRIMARY KEY,
+        username VARCHAR(50) NOT NULL,
+        password VARCHAR(50) NOT NULL,
+        email VARCHAR(100) NOT NULL
+    );";
+    $this->connection->query($query);
+
+
+    $query = "CREATE TABLE IF NOT EXISTS tourist_resources (
+        resource_id INT PRIMARY KEY,
+        resource_name VARCHAR(100) NOT NULL,
+        location VARCHAR(100) NOT NULL,
+        price DECIMAL(10,2) NOT NULL,
+        type VARCHAR(50) NOT NULL,
+        description VARCHAR(500) NOT NULL,
+        availability INT NOT NULL
+    );";
+$this->connection->query($query);
+
+        $query = "CREATE TABLE IF NOT EXISTS reservations (
+            reservation_id INT AUTO_INCREMENT PRIMARY KEY,
+            user_id INT NOT NULL,
+            resource_id INT NOT NULL,
+            trip_date DATE NOT NULL,
+            trip_time TIME NOT NULL,
+            trip_date_end DATE NOT NULL,
+            trip_time_end TIME NOT NULL,
+            total_cost DECIMAL(10,2) NOT NULL,
+            FOREIGN KEY (user_id) REFERENCES users(user_id),
+            FOREIGN KEY (resource_id) REFERENCES tourist_resources(resource_id)
+        );";
+        $this->connection->query($query);
+
+        $query = "CREATE TABLE IF NOT EXISTS payments (
+            payment_id INT AUTO_INCREMENT PRIMARY KEY,
+            reservation_id INT NOT NULL,
+            payment_method VARCHAR(50) NOT NULL,
+            amount DECIMAL(10,2) NOT NULL,
+            FOREIGN KEY (reservation_id) REFERENCES reservations(reservation_id)
+        );";
+        $this->connection->query($query);
+
+        $query = "CREATE TABLE IF NOT EXISTS reviews (
+            review_id INT AUTO_INCREMENT PRIMARY KEY,
+            user_id INT NOT NULL,
+            resource_id INT NOT NULL,
+            rating INT NOT NULL,
+            comments VARCHAR(500),
+            FOREIGN KEY (user_id) REFERENCES users(user_id),
+            FOREIGN KEY (resource_id) REFERENCES tourist_resources(resource_id)
+        );";
+    $this->connection->query($query);
+
+    $queryData = $this->connection->prepare("INSERT IGNORE INTO tourist_resources (resource_id,resource_name,location,price,type,description,availability) VALUES (?,?,?,?,?,?,?)"); 
+
+    $id = 0;
+    $name = 'Las Ayalgas de Silviella';
+    $location = 'Selviella';
+    $price = 7;
+    $type = 'Museo';
+    $description = 'Museo automovilistico situado al lado de Selviella';
+    $availability = 80;
+
+    $queryData->bind_param("ississi",$id,$name,$location,$price,$type,$description,$availability);
+    
+    $queryData ->execute();
+
+    $id = 1;
+    $name = 'La Casa del Lobo';
+    $location = 'Belmonte';
+    $price = 3;
+    $type = 'Museo';
+    $description = 'La Casa del Lobo de Belmonte de Miranda es un referente en la divulgación, la conservación y la sensibilización de una las especies más emblemáticas y controvertidas de Asturias: el lobo ibérico.';
+    $availability = 20;
+
+    $queryData ->execute();
+
+    $id = 2;
+    $name = 'Aula del oro';
+    $location = 'Belmonte';
+    $price = 0;
+    $type = 'Museo';
+    $description = 'El Aula del Oro de Belmonte es un centro de interpretación que recorre de forma didáctica e interactiva toda la historia de la extracción del oro';
+    $availability = 1;
+
+    $queryData ->execute();
+
+    $id = 3;
+    $name = 'Casa Paulino';
+    $location = 'Begega';
+    $price = 15;
+    $type = 'Restaurante';
+    $description = 'Comida casera con un precio economico al final de una zona con muchas rutas';
+    $availability = 75;
+
+    $queryData ->execute();
+
+    $id = 4;
+    $name = 'Casa Tocho';
+    $location = 'Oviñana';
+    $price = 18;
+    $type = 'Restaurante';
+    $description = 'Comida tipica asturiana a la vista de un rio';
+    $availability = 50;
+
+    $queryData ->execute();
+
+    $id = 5;
+    $name = 'La Fuyeca';
+    $location = 'Belmonte';
+    $price = 16;
+    $type = 'Restaurante';
+    $description = 'Comida al estilo casera en la avenida principal';
+    $availability = 30;
+
+    $queryData ->execute();
+
+    $id = 6;
+    $name = 'Sidrería Restaurante Ruta del Oro';
+    $location = 'Lorero';
+    $price = 13;
+    $type = 'Restaurante';
+    $description = 'Comida asturiana y pinchos en una seccion de la ruta del oro';
+    $availability = 45;
+
+    $queryData ->execute();
+
+    $id = 7;
+    $name = 'La casona del rey';
+    $location = 'Alvariza';
+    $price = 65;
+    $type = 'Hotel';
+    $description = 'Hotel con restaurante en el centro de belmonte de miranda';
+    $availability = 20;
+
+    $queryData ->execute();
+
+    $id = 8;
+    $name = 'Alojamiento Calzada Romana';
+    $location = 'Belmonte';
+    $price = 45;
+    $type = 'Hotel';
+    $description = 'Hotel en el centro de Belmonte con vistas a la ciudad';
+    $availability = 30;
+
+    $queryData ->execute();
+
+    $id = 9;
+    $name = 'Spa Rural Mirador de Miranda';
+    $location = 'Cutiellos';
+    $price = 100;
+    $type = 'Hotel';
+    $description = 'Hotel con spa completo en la zona rural';
+    $availability = 40;
+
+    $queryData ->execute();
+        
+    $this->connection->close();
+}
+
+public function crearCuenta(){
+     $this->createConnection();
+    $queryData = $this->connection->prepare("INSERT INTO users (user_id,username,password,email) VALUES (?,?,?,?)");
+    if(empty($_POST["username"]) || empty($_POST["email"]) || empty($_POST["password"])){
+        echo "<p> Alguno de los campos no ha sido rellenado </p>";
+    }else{
+        $query = $this->connection->query("SELECT COUNT(*) from users WHERE username = '" . $_POST["username"] ."'");
+        if($query->fetch_row()[0] != 0){
+            echo "<p>Ya existe una cuenta con ese usuario</p>";
+        }else{
+        $randomId = rand();
+        $queryData->bind_param('isss',$randomId,$_POST["username"],$_POST["password"],$_POST["email"]);
+        $queryData->execute();
+        echo "<p>Cuenta anadida correctamente</p>";
+        }
+    }
+     $this->connection->close();
+}
+
+public function inicioSesion(){
+     $this->createConnection();
+    $query = $this->connection->query("SELECT COUNT(*) from users WHERE username = '" . $_POST["username2"] ."' AND password = '" . $_POST["password2"] ."'");
+    if($query->fetch_row()[0] == 0){
+        echo "<p>No existe esta cuenta</p>";
+    }else{
+        $query = $this->connection->query("SELECT user_id from users WHERE username = '" . $_POST["username2"] ."' AND password = '" . $_POST["password2"] ."'");
+        $_SESSION['user_id'] = $query->fetch_row()[0];
+        header("Location: /reservar.php");
+        exit;
+//         echo "<p>Bienvenido " . $_POST["username2"] . ", haga click en el enlace inferior para acceder a los recursos turisticos.</p>";
+//         echo '<a href="reservar.php" title="Iniciar busqueda de reservas">Buscar recursos turisticos a reservar</a>';
+    }
+ $this->connection->close();
+}
+
+public function mostrarRecursos(){
+     $this->createConnection();
+    if(empty($_POST["fecha"]) || empty($_POST["time"]) || empty($_POST["fechaF"]) || empty($_POST["timeF"])){
+        echo "<p> Se debe seleccionar una fecha y hora antes de buscar </p>";
+    }else{
+        $fecha = $_POST["fecha"];
+        $_SESSION['fecha'] = $fecha;
+        $time = $_POST["time"];
+        $_SESSION['time'] = $time;
+        $fechaF = $_POST["fechaF"];
+        $_SESSION['fechaF'] = $fechaF;
+        $timeF = $_POST["timeF"];
+        $_SESSION['timeF'] = $timeF;
+        $query = $this->connection->query("SELECT * from tourist_resources");
+        
+        echo "<form action='#' method='post' id=reserva>";
+
+        while ($row = $query->fetch_row()){
+            $capacidadActual = $this->connection->query("SELECT COUNT(*) FROM reservations where trip_date ='".$fecha."'AND trip_time ='".$time."' AND resource_id ='".$row[0]."'");
+            $capacidad = $capacidadActual->fetch_row()[0];
+            $review = $this->connection->query("SELECT AVG(rating) from reviews WHERE resource_id = " . $row[0]);
+            echo "<h3>" . $row[1]. "</h3>";
+            echo "<p> Ciudad: " . $row[2]. "</p>";
+            echo "<p>Valoracion media: ". round($review->fetch_row()[0],4). "</p>";
+            echo "<p>Precio: ".$row[3]. "€</p>";
+            echo "<p>Tipo: ". $row[4]. "</p>";
+            echo "<p>Descripcion: ". $row[5]. "</p>";
+            echo "<p>Capacidad: ".$capacidad ."/". $row[6] . "</p>";
+            echo '<label for="'.$row[0].'">Marcar para reservar</label>';
+            if($capacidad == $row[6]){
+                echo '<input type="checkbox" id="'.$row[0].'" name="'.$row[0].'" disabled/>';
+            }else{
+            echo '<input type="checkbox" id="'.$row[0].'" name="'.$row[0].'"/>';
+            }
+            
+        }
+
+        echo '<label for="metodoDePago">Metodo de pago:</label>
+        <select id="metodoDePago" name="metodoDePago">
+        <option value="efectivo">Efectivo</option>
+        <option value="tarjeta">Tarjeta</option>
+        <option value="bizum">Bizum</option>
+      </select>';
+        echo "<button type='submit' name='reservar'> Realizar reservas </button>";
+        echo "</form>";
+    }
+     $this->connection->close();
+}
+
+public function verReservas(){
+     $this->createConnection();
+    echo "<h2> Mis reservas </h2>";
+    echo "<p> En la siguiente sección se muestran las reservas realizadas hasta ahora. </p>";
+    $query = $this->connection->query("SELECT * from reservations WHERE user_id= " . $_SESSION['user_id'] . " ORDER BY  trip_date, trip_time ASC ");
+    while ($row = $query->fetch_row()){
+        $resource = $this->connection->query("SELECT * from tourist_resources WHERE resource_id= " . $row[2]);
+        while ($rowResource = $resource->fetch_row()){
+            $isReviewed = $this->connection->query("SELECT * from reviews WHERE resource_id = " . $rowResource[0] . " AND user_id =" .$_SESSION['user_id']);
+            $rowIsReviewed = $isReviewed->fetch_row();
+            $paymentMethod = $this->connection->query("SELECT payment_method from payments WHERE reservation_id = " . $row[0]);
+            $initDate =DateTime::createFromFormat('Y-m-d',$row[3]);
+            $finDate = DateTime::createFromFormat('Y-m-d',$row[5]);
+            if($rowIsReviewed == null){
+                echo "<form action='#' method='post'>";
+                echo "<h3>" . $rowResource[1] . "</h3>";
+                echo "<p>Fecha inicio: ". $row[3]." ".$row[4]. "</p>";
+                echo "<p>Fecha fin: ". $row[5]." ".$row[6]. "</p>";
+                echo "<p>Precio: ".intval($rowResource[3],10) *( $initDate->diff($finDate)->days)  ."</p>";
+                echo "<p>Metodo de pago: " . $paymentMethod->fetch_row()[0]."</p>";
+                echo '<label for="'.$rowResource[0].'">Reseña:</label>';
+                echo '<input type="number" id="'.$rowResource[0].'" name="'.$rowResource[0].'" min="1" max="5"/>';
+                echo '<label for="comentario'.$rowResource[0].'">Comentarios:</label>';
+                echo '<input type="text" id="comentario'.$rowResource[0].'" name="comentarios" />';
+                echo "<button type='submit' name='resena'> Enviar reseña </button>";
+                echo "</form>";
+            }else{
+                echo "<h3>" . $rowResource[1] . "</h3>";
+                echo "<p>Fecha inicio: ". $row[3]." ".$row[4]. "</p>";
+                echo "<p>Fecha fin: ". $row[5]." ".$row[6]. "</p>";
+                echo "<p>Precio: ".intval($rowResource[3],10) *( $initDate->diff($finDate)->days)  ."</p>";
+                echo "<p>Metodo de pago:" . $paymentMethod->fetch_row()[0]."</p>";
+                echo '<label for="'.$rowResource[0].'">Reseña:</label>';
+                echo  '<input type="number" id="'.$rowResource[0].'" name="'.$rowResource[0].'" value="'.$rowIsReviewed[3].'"disabled/>';
+                echo '<label for="comentario'.$rowResource[0].'">Comentarios:</label>';
+                echo '<input type="text" id="comentario'.$rowResource[0].'" name="comentarios" value="'.$rowIsReviewed[4] .'" disabled/>';   
+            }
+        }
+    }
+     $this->connection->close();
+}
+
+public function reservar(){
+     $this->createConnection();
+    $metodo = $_POST['metodoDePago'];
+    $valido = true;
+    $fecha = $_SESSION['fecha'];
+    $hora = $_SESSION['time'];
+    foreach($_POST as $key => $value){
+        if($key != 'reservar' && $key != 'metodoDePago'){
+            $dateInicial = DateTime::createFromFormat('Y-m-d', $_SESSION['fecha']);
+            $dateFinal = DateTime::createFromFormat('Y-m-d', $_SESSION['fechaF']);
+            while(!($dateInicial == $dateFinal)){
+                $currentDate =  date_format($dateInicial,'Y-m-d');
+                $queryAmount = $this->connection->query("SELECT COUNT(*) FROM  reservations WHERE trip_date='$currentDate' AND trip_time='$hora'"); 
+
+                $query = $this->connection->query("SELECT availability FROM tourist_resources where resource_id = ". $key );
+
+                $availability = $query->fetch_row()[0];
+                $numberOfReservations = $queryAmount->fetch_row()[0];
+                if ($numberOfReservations == $availability){
+                    $valido = false;
+                    echo "Ya existen reservas para estas fechas";
+                }
+                $dateInicial->modify('+1 day');
+            }
+        }
+    }
+    if ($valido){
+    foreach($_POST as $key => $value){
+        if($key != 'reservar' && $key != 'metodoDePago'){
+            $queryData = $this->connection->prepare("INSERT INTO reservations (reservation_id,user_id,resource_id,trip_date,trip_time, trip_date_end, trip_time_end,total_cost) VALUES (?,?,?,?,?,?,?,?)"); 
+
+            $query = $this->connection->query("SELECT price FROM tourist_resources where resource_id = ". $key );
+
+            $id= 0;
+            $user_id = $_SESSION['user_id'];
+            $resource_id = $key;
+            $date = $_SESSION['fecha'];
+            $tiempo = (strtotime($_SESSION['fechaF']) - strtotime($_SESSION['fecha']))/(24*60*60);
+            if($tiempo == 0){
+                $tiempo = 1;
+            }
+            $price = round($query->fetch_row()[0] * $tiempo);
+            $dateF = $_SESSION['fechaF'];
+            $time = $_SESSION['time'];
+            $timeF = $_SESSION['timeF'];
+    
+            $queryData->bind_param("iiissssd",$id,$user_id,$resource_id,$date,$time,$dateF,$timeF,$price);
+            
+            $queryData ->execute();
+
+            $reservation_id = $this->connection->query("SELECT reservation_id FROM reservations where resource_id = ". $resource_id ." AND user_id=" . $_SESSION['user_id']." AND trip_date='" . $date ."' AND trip_time= '" . $time ."'"   );
+
+            $this->connection->query("INSERT INTO payments (payment_id,reservation_id,payment_method,amount) VALUES (". 0 .",".$reservation_id->fetch_row()[0].",'".$metodo."',".$price.")");
+        }
+    }
+    $query = $this->connection->query("SELECT SUM(total_cost) FROM reservations where user_id = ". $_SESSION['user_id'] );
+    echo "Coste total de reservas: " . $query->fetch_row()[0];
+}
+     $this->connection->close();
+}
+
+public function hacerResena(){
+     $this->createConnection();
+    foreach($_POST as $key => $value){
+        if($key != 'resena' && $key != 'comentarios'){
+            $queryData = $this->connection->prepare("INSERT INTO reviews (review_id,user_id,resource_id,rating,comments) VALUES (?,?,?,?,?)"); 
+            $review_id = 0;
+            $user_id = $_SESSION['user_id'];
+            $resource_id = $key;
+            $rating = $value;
+            $comments = $_POST['comentarios'];
+            $queryData->bind_param("iiiis",$review_id ,$user_id,$resource_id,$rating,$comments);
+            $queryData ->execute();
+        }
+    }
+     $this->connection->close();
+}
+}
+
